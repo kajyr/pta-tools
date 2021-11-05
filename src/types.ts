@@ -1,5 +1,12 @@
+export type Entry = {
+  account: string;
+  amount?: string;
+  commodity?: string;
+  conversion?: { amount: string; commodity: string };
+};
 export type Transaction = {
   date: Date;
   description?: string;
-  entries: { account: string; amount: string }[];
+  confirmed?: boolean;
+  entries: Entry[];
 };
