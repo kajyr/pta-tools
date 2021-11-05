@@ -6,7 +6,8 @@
   "scripts": {
     "build": "rimraf ./build && rollup -c rollup.config.js",
     "watch": "rollup -w -c rollup.config.js",
-    "test": "jest"
+    "test": "jest",
+    "release": "release-it"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
     "@types/node": "^16.11.6",
     "@types/split2": "^3.2.1",
     "jest": "^27.3.1",
+    "release-it": "^14.11.6",
     "rimraf": "^3.0.2",
     "rollup": "^2.59.0",
     "rollup-plugin-typescript2": "^0.30.0",
