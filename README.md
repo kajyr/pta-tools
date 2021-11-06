@@ -7,6 +7,7 @@ On the TS / JS side Transactions are described by the [Transaction](src/types.ts
 ## Apis
 
 ### formatTransaction
+
 ```
 import { formatTransaction } from 'pta-journal';
 ```
@@ -16,3 +17,23 @@ function formatTransaction(trx: Transaction): string
 ```
 
 Returns the Transaction formatted in a way suitable to be appendend to a journal file
+
+### parse
+
+```
+import { parse } from 'pta-journal';
+```
+
+```
+function parse(stream: ReadableStream): ParseResult
+```
+
+```
+type ParseResult = {
+  transactions: Transaction[];
+  accounts: string[];
+  commodities: string[];
+};
+```
+
+Returns the transactions, the accounts and the commodities from a journal. To get the stream of the journal you can use

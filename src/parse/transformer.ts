@@ -1,11 +1,6 @@
-import { match } from 'assert';
-import split2 from 'split2';
 import { Transform } from 'stream';
-import { Entry, Transaction } from 'types';
 
-function isDate(str: string): boolean {
-  return /^\d{4}-\d{2}-\d{2}$/.test(str);
-}
+import { Entry, Transaction } from '../types';
 
 export function parseHeaderLine(str: string) {
   const [date, ...other] = str.split(/\s+/);
@@ -43,6 +38,10 @@ export function parseEntryLine(str: string): Entry {
   };
 }
 
+function isDate(str: string): boolean {
+  return /^\d{4}-\d{2}-\d{2}$/.test(str);
+}
+
 class Transformer extends Transform {
   chunk: Transaction | null = null;
   constructor() {
@@ -67,7 +66,15 @@ class Transformer extends Transform {
         entries: [],
       };
     } else if (this.chunk) {
-      this.chunk.entries.push(parseEntryLine(trimmed));
+      const entry = parseEntryLine(trimmed);
+      this.chunk.entries.push(entry);
+      this.push({ type: "account", id: entry.account });
+      if (entry.commodity) {
+        this.push({ type: "commodity", id: entry.commodity });
+      }
+      if (entry.conversion) {
+        this.push({ type: "commodity", id: entry.conversion.commodity });
+      }
     }
     callback();
   }
@@ -80,24 +87,4 @@ class Transformer extends Transform {
   }
 }
 
-function parse(stream: NodeJS.ReadableStream): Promise<Transaction[]> {
-  const trxs: Transaction[] = [];
-  const transformer = new Transformer();
-
-  return new Promise((resolve, reject) => {
-    stream
-      .pipe(split2())
-      .pipe(transformer)
-      .on("data", (data: Transaction) => {
-        trxs.push(data);
-      })
-      .on("end", () => {
-        resolve(trxs);
-      })
-      .on("error", () => {
-        reject();
-      });
-  });
-}
-
-export default parse;
+export default Transformer;

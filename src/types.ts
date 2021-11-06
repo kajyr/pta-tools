@@ -4,6 +4,7 @@ export type Entry = {
   commodity?: string;
   conversion?: { amount: string; commodity: string };
 };
+
 export type Transaction = {
   date: Date;
   description?: string;
