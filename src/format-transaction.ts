@@ -19,9 +19,20 @@ function formatTransaction(trx: Transaction): string {
   const dateStr = formatDate(trx.date);
   let str = `${dateStr} ${trx.description}\n`;
   for (const line of trx.entries) {
-    str = `${str}    ${line.account}${spaces(30 - line.amount.length, 2)}${
-      line.amount
-    }\n`;
+    str = `${str}    ${line.account}`;
+
+    if (line.amount) {
+      str = `${str}  ${spaces(
+        30 - line.account.length - line.amount.length,
+        2
+      )}${line.amount}`;
+
+      if (line.commodity) {
+        str = `${str} ${line.commodity}`;
+      }
+    }
+
+    str = `${str}\n`;
   }
 
   str = str + `\n`;
