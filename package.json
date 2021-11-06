@@ -1,7 +1,7 @@
 {
-  "name": "pta-js",
+  "name": "pta-journal",
   "version": "0.2.0",
-  "description": "Plain text accounting JS helpers",
+  "description": "Plain text accounting journal JS apis",
   "main": "build/index.js",
   "scripts": {
     "build": "rimraf ./build && rollup -c rollup.config.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kajyr/pta-js.git"
+    "url": "git+https://github.com/kajyr/pta-journal.git"
   },
   "author": "Carlo 'kajyr' <carlo.panzi@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kajyr/pta-js/issues"
+    "url": "https://github.com/kajyr/pta-journal/issues"
   },
-  "homepage": "https://github.com/kajyr/pta-js#readme",
+  "homepage": "https://github.com/kajyr/pta-journal#readme",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",
     "@types/jest": "^27.0.2",
