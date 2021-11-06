@@ -14,7 +14,7 @@ type Collectible = {
   id: string;
 };
 
-type ParseResult = {
+export type ParseResult = {
   transactions: Transaction[];
   accounts: string[];
   commodities: string[];
