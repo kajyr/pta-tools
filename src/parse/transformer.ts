@@ -1,6 +1,6 @@
 import { Transform } from 'stream';
 
-import { Entry, Transaction } from '../types';
+import { Transaction, TransactionEntry } from '../types';
 
 export function parseHeaderLine(str: string) {
   const [date, ...other] = str.split(/\s+/);
@@ -12,7 +12,7 @@ export function parseHeaderLine(str: string) {
   return { date: new Date(date), confirmed, description };
 }
 
-export function parseEntryLine(str: string): Entry {
+export function parseEntryLine(str: string): TransactionEntry {
   const matches = str.match(/^(\S+)\s{2,}(.+)$/);
   if (!matches) {
     return { account: str };
