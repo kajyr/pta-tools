@@ -60,4 +60,14 @@ describe("parseEntryLine", () => {
       }
     );
   });
+
+  test("Supports virtual postings", () => {
+    expect(
+      parseEntryLine("(Assets:Crypto)      -8.00 LTC @ 173.41 EUR").account
+    ).toBe("Assets:Crypto");
+
+    expect(
+      parseEntryLine("[Assets:Crypto]      -8.00 LTC @ 173.41 EUR").account
+    ).toBe("Assets:Crypto");
+  });
 });

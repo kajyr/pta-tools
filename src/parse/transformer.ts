@@ -17,7 +17,7 @@ export function parseEntryLine(str: string): TransactionEntry {
   if (!matches) {
     return { account: str };
   }
-  const account = matches[1];
+  const account = matches[1].replace(/^[\[(]/, "").replace(/[\])]$/, "");
   const values = matches[2];
 
   if (values.indexOf("@") === -1) {
