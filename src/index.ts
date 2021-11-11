@@ -1,5 +1,17 @@
 import formatTransaction from './format-transaction';
 import parse, { ParseResult } from './parse';
-import { Transaction, TransactionEntry } from './types';
+import { Posting, Transaction } from './types';
 
-export { formatTransaction, Transaction, parse, ParseResult, TransactionEntry };
+/**
+ * @deprecated
+ */
+type TransactionEntry = Posting;
+
+export {
+  formatTransaction,
+  Transaction,
+  parse,
+  ParseResult,
+  TransactionEntry,
+  Posting,
+};

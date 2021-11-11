@@ -1,6 +1,8 @@
 import { Transform } from 'stream';
 
-import { Transaction, TransactionEntry } from '../types';
+import { Transaction } from '../types';
+
+import parsePosting from './parse-posting';
 
 export function parseHeaderLine(str: string) {
   const [date, ...other] = str.split(/\s+/);
@@ -10,32 +12,6 @@ export function parseHeaderLine(str: string) {
   }
   const description = other.join(" ");
   return { date: new Date(date), confirmed, description };
-}
-
-export function parseEntryLine(str: string): TransactionEntry {
-  const matches = str.match(/^(\S+)\s{2,}(.+)$/);
-  if (!matches) {
-    return { account: str };
-  }
-  const account = matches[1].replace(/^[\[(]/, "").replace(/[\])]$/, "");
-  const values = matches[2];
-
-  if (values.indexOf("@") === -1) {
-    // No conversion
-    const [amount, commodity] = values.split(/\s+/);
-    return { amount, account, commodity };
-  }
-
-  const [ams, conversion] = values.split(/\s*@\s*/);
-  const [amount, commodity] = ams.split(/\s+/);
-  const [c_amount, c_commodity] = conversion.split(/\s+/);
-
-  return {
-    amount,
-    account,
-    commodity,
-    conversion: { amount: c_amount, commodity: c_commodity },
-  };
 }
 
 function isDate(str: string): boolean {
@@ -66,7 +42,7 @@ class Transformer extends Transform {
         entries: [],
       };
     } else if (this.chunk) {
-      const entry = parseEntryLine(trimmed);
+      const entry = parsePosting(trimmed);
       this.chunk.entries.push(entry);
       this.push({ type: "account", id: entry.account });
       if (entry.commodity) {

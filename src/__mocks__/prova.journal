@@ -8,12 +8,15 @@
 
 2021-06-02 Nulla
     Assets:Banca            20 EUR
-    Expenses:Droga         -20 EUR
+    Expenses:Groceries                   -20 EUR
 
-2021-11-02 Nulla
-    Assets:Banca            40 EUR
-    Expenses:Droga         -40 EUR
+;comment
 
+2021-11-02 Nulla ; comment
+    Assets:Banca                            40 EUR
+    Expenses:Groceries         -40 EUR
+
+P 2021-11-02 BNB 475 EUR
 
 2021-11-04 Pino
     34                          EUR
