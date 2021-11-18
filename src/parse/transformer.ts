@@ -44,13 +44,6 @@ class Transformer extends Transform {
     } else if (this.chunk) {
       const entry = parsePosting(trimmed);
       this.chunk.entries.push(entry);
-      this.push({ type: "account", id: entry.account });
-      if (entry.commodity) {
-        this.push({ type: "commodity", id: entry.commodity });
-      }
-      if (entry.conversion) {
-        this.push({ type: "commodity", id: entry.conversion.commodity });
-      }
     }
     callback();
   }

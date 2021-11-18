@@ -1,16 +1,14 @@
 import split2 from 'split2';
 
+import getAccounts from '../get-accounts';
+import getCommodities from '../get-commodities';
 import isTransaction from '../is-transaction';
 import { Transaction } from '../types';
 
 import Transformer from './transformer';
 
-function unique<T>(list: T[]): T[] {
-  return Array.from(new Set(list));
-}
-
 type Collectible = {
-  type: "account" | "commodity";
+  type: "never";
   id: string;
 };
 
@@ -23,8 +21,6 @@ export type ParseResult = {
 function parse(stream: NodeJS.ReadableStream): Promise<ParseResult> {
   const trxs: Transaction[] = [];
   const transformer = new Transformer();
-  const accounts: string[] = [];
-  const commodities: string[] = [];
 
   return new Promise((resolve, reject) => {
     stream
@@ -33,17 +29,13 @@ function parse(stream: NodeJS.ReadableStream): Promise<ParseResult> {
       .on("data", (data: Transaction | Collectible) => {
         if (isTransaction(data)) {
           trxs.push(data);
-        } else if (data.type === "account") {
-          accounts.push(data.id);
-        } else if (data.type === "commodity") {
-          commodities.push(data.id);
         }
       })
       .on("end", () => {
         resolve({
           transactions: trxs,
-          accounts: unique(accounts),
-          commodities: unique(commodities),
+          accounts: getAccounts(trxs),
+          commodities: getCommodities(trxs),
         });
       })
       .on("error", () => {
