@@ -51,4 +51,14 @@ describe("parsePosting", () => {
       parsePosting("[Assets:Crypto]      -8.00 LTC @ 173.41 EUR").account
     ).toBe("Assets:Crypto");
   });
+
+  test("Supports comments", () => {
+    expect(
+      parsePosting("(Assets:Crypto)      -8.00 LTC @ 173.41 EUR").account
+    ).toBe("Assets:Crypto");
+
+    expect(
+      parsePosting("[Assets:Crypto]      -8.00 LTC @ 173.41 EUR").account
+    ).toBe("Assets:Crypto");
+  });
 });
