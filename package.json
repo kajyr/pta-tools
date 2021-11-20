@@ -9,7 +9,8 @@
     "test": "jest",
     "release": "release-it",
     "prerelease": "npm run build",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "format": "node build/bin/format.js"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,7 @@
     "husky": "^7.0.0"
   },
   "dependencies": {
-    "split2": "^4.1.0"
+    "split2": "^4.1.0",
+    "temp-write": "^5.0.0"
   }
 }

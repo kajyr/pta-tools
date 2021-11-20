@@ -1,0 +1,15 @@
+~ Monthly
+  Expenses:Salami  15 EUR
+  Assets:Banca
+
+2021-01-01 * Opening Balance
+    Assets:Banca                   1000 EUR
+    Equity:Opening Balances
+
+2021-06-02 Nulla
+    Assets:Banca            20 EUR
+    Expenses:Salami         -20 EUR
+
+2021-11-02 Nulla
+    Assets:Banca            40 EUR
+    Expenses:Salami         -40 EUR

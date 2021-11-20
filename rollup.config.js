@@ -6,11 +6,11 @@ const peers = Object.keys(packageJson.peerDependencies || {});
 const external = deps.concat(peers);
 
 export default {
-  input: "src/index.ts",
+  input: ["src/index.ts"],
   external,
   output: [
     {
-      file: "build/index.js",
+      dir: "build",
       format: "cjs",
       sourcemap: true,
     },
