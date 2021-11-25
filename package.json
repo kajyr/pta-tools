@@ -22,6 +22,7 @@
   "homepage": "https://github.com/kajyr/pta-journal#readme",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-json": "^4.1.0",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.6",
     "@types/split2": "^3.2.1",
