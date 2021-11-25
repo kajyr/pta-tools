@@ -57,14 +57,21 @@ describe("parse", () => {
       Expenses:Fees:Coinbase
       
       2021-11-02
-      Assets:Crypto:Coinbase    -0.5 ETH @ 3899.56 EUR
-      Assets:Crypto:Coinbase               1942.96 EUR
-      Expenses:Fees:Coinbase
+      Income:Salary:John        1000 USD
+      Assets:Bank              -1000 USD
+      [Budget:Holidays]         -200 USD
+      [Assets:Bank]              200 USD
       `);
 
     const p = await parse(stream);
 
-    expect(p.accounts.length).toBe(2);
+    expect(p.accounts).toEqual([
+      "Assets:Crypto:Coinbase",
+      "Expenses:Fees:Coinbase",
+      "Income:Salary:John",
+      "Assets:Bank",
+      "Budget:Holidays",
+    ]);
   });
 
   test("Extracts Commodities", async () => {
