@@ -70,9 +70,9 @@ describe("parse", () => {
 
     expect(p.accounts).toEqual([
       "Assets:Crypto:Coinbase",
+      "Assets:Bank",
       "Expenses:Fees:Coinbase",
       "Income:Salary:John",
-      "Assets:Bank",
       "Budget:Holidays",
     ]);
   });

@@ -1,13 +1,23 @@
-import { unique } from './array';
 import isTransaction from './is-transaction';
 import { Journal } from './types';
 
-function getAccounts(trxs: Journal): string[] {
-  return unique(
-    trxs
-      .filter(isTransaction)
-      .flatMap((trx) => trx.entries.map((entry) => entry.account))
-  );
+type Temp = { k: string; n: number };
+
+function getAccountsSorted(trxs: Journal): string[] {
+  const obj = trxs
+    .filter(isTransaction)
+    .flatMap((trx) => trx.entries.map((entry) => entry.account))
+    .reduce((acc, cur) => {
+      acc[cur] = (acc[cur] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+  let a: Temp[] = [];
+  for (let k in obj) {
+    a.push({ k: k, n: obj[k] });
+  }
+
+  return a.sort((a, b) => b.n - a.n).map((a) => a.k);
 }
 
-export default getAccounts;
+export default getAccountsSorted;
