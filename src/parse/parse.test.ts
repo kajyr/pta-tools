@@ -1,6 +1,8 @@
 import { createReadStream } from 'fs';
 
 import mockStream from '../__mocks__/string-stream';
+import isComment from '../is-comment';
+import { Comment, Transaction } from '../types';
 
 import parse from './';
 
@@ -9,8 +11,7 @@ describe("parse", () => {
     const readStream = createReadStream(`src/__mocks__/prova.journal`);
 
     const p = await parse(readStream);
-
-    expect(p.transactions.length).toBe(4);
+    expect(p.journal.length).toBe(5);
   });
 
   test("it works with string streams", async () => {
@@ -30,8 +31,8 @@ describe("parse", () => {
 
     const p = await parse(stream);
 
-    expect(p.transactions.length).toBe(2);
-    const [first] = p.transactions;
+    expect(p.journal.length).toBe(2);
+    const first = p.journal[0] as Transaction;
 
     expect(first.date).toStrictEqual(new Date("2021-11-02"));
     expect(first.confirmed).toBe(true);
@@ -56,6 +57,8 @@ describe("parse", () => {
       Assets:Crypto:Coinbase                 1382.42 EUR
       Expenses:Fees:Coinbase
       
+      ; This is a comment
+
       2021-11-02
       Income:Salary:John        1000 USD
       Assets:Bank              -1000 USD
@@ -90,5 +93,40 @@ describe("parse", () => {
     const p = await parse(stream);
 
     expect(p.commodities).toEqual(["LTC", "EUR", "USD", "ETH"]);
+  });
+});
+
+describe("Comments", () => {
+  test("Finds out standalone comments", async () => {
+    const stream = mockStream(`
+      2021-11-02 * Some shopping
+      Expenses Groceries  30 EUR
+      Assets:Cash
+      
+      ; This is a comment
+
+      2021-11-02
+      Income:Salary:John        1000 USD
+      Assets:Bank      
+      `);
+
+    const p = await parse(stream);
+
+    expect(p.journal.length).toBe(3);
+    expect(isComment(p.journal[1])).toBe(true);
+
+    const c = p.journal[1] as Comment;
+    expect(c.message).toBe("This is a comment");
+  });
+
+  test("Finds comments inside transactions", async () => {
+    const stream = createReadStream(`src/__mocks__/prova.journal`);
+    const p = await parse(stream);
+
+    const trx = p.journal.find(
+      (t) => (t as Transaction).description === "Nulla"
+    ) as Transaction;
+
+    expect(trx.comment).toBe("comment");
   });
 });

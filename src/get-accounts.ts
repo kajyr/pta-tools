@@ -1,9 +1,12 @@
 import { unique } from './array';
-import { Transaction } from './types';
+import isTransaction from './is-transaction';
+import { Journal } from './types';
 
-function getAccounts(trxs: Transaction[]): string[] {
+function getAccounts(trxs: Journal): string[] {
   return unique(
-    trxs.flatMap((trx) => trx.entries.map((entry) => entry.account))
+    trxs
+      .filter(isTransaction)
+      .flatMap((trx) => trx.entries.map((entry) => entry.account))
   );
 }
 

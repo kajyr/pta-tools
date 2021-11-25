@@ -1,9 +1,10 @@
 import { unique } from './array';
-import { Transaction } from './types';
+import isTransaction from './is-transaction';
+import { Journal } from './types';
 
-function getCommodities(trxs: Transaction[]): string[] {
+function getCommodities(trxs: Journal): string[] {
   return unique(
-    trxs.flatMap((trx) =>
+    trxs.filter(isTransaction).flatMap((trx) =>
       trx.entries.flatMap((entry) => {
         const l: string[] = [];
         if (entry.commodity) {

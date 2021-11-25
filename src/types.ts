@@ -7,8 +7,15 @@ export type Posting = {
 };
 
 export type Transaction = {
+  comment?: string;
   date: Date;
   description?: string;
   confirmed?: boolean;
   entries: Posting[];
 };
+
+export type Comment = {
+  message: string;
+};
+
+export type Journal = (Transaction | Comment)[];
