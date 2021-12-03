@@ -1,4 +1,4 @@
-import parsePosting from './parse-posting';
+import parsePosting, { getAmount, getCommodity } from './parse-posting';
 
 describe("parsePosting", () => {
   test("Line with commodity", () => {
@@ -21,6 +21,14 @@ describe("parsePosting", () => {
       account: "Assets:Bank",
       amount: "34.00",
       commodity: undefined,
+    });
+  });
+
+  test("Account with spaces", () => {
+    expect(parsePosting("Expenses:Cibo:Dining out   20 EUR")).toEqual({
+      account: "Expenses:Cibo:Dining out",
+      amount: "20",
+      commodity: "EUR",
     });
   });
 
@@ -60,5 +68,23 @@ describe("parsePosting", () => {
     expect(
       parsePosting("[Assets:Crypto]      -8.00 LTC @ 173.41 EUR").account
     ).toBe("Assets:Crypto");
+  });
+});
+
+describe("getAmount", () => {
+  test("Simple", () => {
+    expect(getAmount("20 EUR")).toBe("20");
+    expect(getAmount("-20 EUR")).toBe("-20");
+    expect(getAmount("20.00 EUR")).toBe("20.00");
+    expect(getAmount("0 EUR")).toBe("0");
+    expect(getAmount("34")).toBe("34");
+  });
+});
+
+describe("getCommodity", () => {
+  test("Simple", () => {
+    expect(getCommodity("20 Pizza")).toBe("Pizza");
+    expect(getCommodity("0 EUR")).toBe("EUR");
+    expect(getCommodity("34")).toBe(undefined);
   });
 });
