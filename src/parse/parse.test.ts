@@ -63,7 +63,7 @@ describe("parse", () => {
       Income:Salary:John        1000 USD
       Assets:Bank              -1000 USD
       [Budget:Holidays]         -200 USD
-      [Assets:Bank]              200 USD
+      [Assets:Bank]
       `);
 
     const p = await parse(stream);

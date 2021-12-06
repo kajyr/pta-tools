@@ -25,13 +25,18 @@ function parseRebalance(account: string, values: string): Posting {
   return { account, is_rebalance: true, amount, commodity };
 }
 
+function filterBrackets(str: string): string {
+  return str.replace(/[\[\]()]/g, "");
+}
+
 function parsePosting(str: string): Posting {
   const matches = str.match(/^(.+?)\s{2,}(.+)$/);
 
   if (!matches) {
-    return { account: str };
+    return { account: filterBrackets(str) };
   }
-  const account = matches[1].replace(/^[\[(]/, "").replace(/[\])]$/, "");
+
+  const account = filterBrackets(matches[1]);
   const values = matches[2];
 
   if (values.indexOf("=") > -1) {
