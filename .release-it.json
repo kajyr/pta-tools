@@ -3,6 +3,10 @@
     "release": false
   },
   "git": {
-    "commitMessage": "chore: release v${version}"
+    "commitMessage": "chore: release v${version}",
+    "changelog": "git log --pretty=format:\"* %s (%h)\" ${from}...${to}"
+  },
+  "npm": {
+    "publish": true
   }
 }
