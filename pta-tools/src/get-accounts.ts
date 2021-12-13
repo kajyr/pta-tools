@@ -1,4 +1,4 @@
-import isTransaction from './is-transaction';
+import { isTransaction } from './type-guards';
 import { Journal } from './types';
 
 type Temp = { k: string; n: number };

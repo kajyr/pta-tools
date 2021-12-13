@@ -2,7 +2,7 @@ import { Transform } from 'stream';
 
 import formatComment from './format-comment';
 import formatTransaction from './format-transaction';
-import isTransaction from './is-transaction';
+import { isTransaction } from './type-guards';
 import { Comment, Transaction } from './types';
 
 class Formatter extends Transform {

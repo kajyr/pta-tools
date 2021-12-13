@@ -1,4 +1,4 @@
-import isTransaction from './is-transaction';
+import { isTransaction } from './type-guards';
 import { Comment, Transaction } from './types';
 
 describe("isTransaction", () => {

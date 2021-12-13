@@ -1,5 +1,5 @@
 import { unique } from './array';
-import isTransaction from './is-transaction';
+import { isTransaction } from './type-guards';
 import { Journal } from './types';
 
 function getCommodities(trxs: Journal): string[] {

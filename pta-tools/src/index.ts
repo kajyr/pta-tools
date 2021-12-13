@@ -1,9 +1,9 @@
 import formatComment from './format-comment';
 import formatTransaction from './format-transaction';
 import Formatter from './formatter';
-import isTransaction from './is-transaction';
 import parse, { ParseResult } from './parse';
 import Parser from './parser';
+import { isTransaction } from './type-guards';
 import { Comment, Journal, Posting, Transaction } from './types';
 
 /**
