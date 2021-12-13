@@ -1,5 +1,6 @@
+import { Transaction } from '../types';
+
 import formatTransaction from './format-transaction';
-import { Transaction } from './types';
 
 describe("formatTransaction", () => {
   test("formats a basic trx", () => {

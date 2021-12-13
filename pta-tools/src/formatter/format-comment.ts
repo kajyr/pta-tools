@@ -1,4 +1,4 @@
-import { Comment } from './types';
+import { Comment } from '../types';
 
 function formatComment(comment: Comment): string {
   return `; ${comment.message}\n\n`;

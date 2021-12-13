@@ -1,9 +1,10 @@
 import { Transform } from 'stream';
 
+import { isComment, isTransaction } from '../type-guards';
+import { Comment, Transaction } from '../types';
+
 import formatComment from './format-comment';
 import formatTransaction from './format-transaction';
-import { isComment, isTransaction } from './type-guards';
-import { Comment, Transaction } from './types';
 
 class Formatter extends Transform {
   constructor() {

@@ -1,5 +1,5 @@
-import { isComment, isPosting } from './type-guards';
-import { Comment, Posting, Transaction } from './types';
+import { isComment, isPosting } from '../type-guards';
+import { Comment, Posting, Transaction } from '../types';
 
 export const INDENT = "    ";
 

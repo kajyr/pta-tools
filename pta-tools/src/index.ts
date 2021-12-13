@@ -1,6 +1,6 @@
-import formatComment from './format-comment';
-import formatTransaction from './format-transaction';
 import Formatter from './formatter';
+import formatComment from './formatter/format-comment';
+import formatTransaction from './formatter/format-transaction';
 import parse, { ParseResult } from './parse';
 import Parser from './parser';
 import { isTransaction } from './type-guards';

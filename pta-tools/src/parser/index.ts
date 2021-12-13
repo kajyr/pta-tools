@@ -1,6 +1,6 @@
 import { Transform } from 'stream';
 
-import { INDENT } from '../format-transaction';
+import { INDENT } from '../formatter/format-transaction';
 import { isTransaction } from '../type-guards';
 import { Comment, Transaction } from '../types';
 

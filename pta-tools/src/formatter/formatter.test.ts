@@ -1,7 +1,8 @@
 import { Readable } from 'stream';
 
-import Formatter from './formatter';
-import { Journal } from './types';
+import { Journal } from '../types';
+
+import Formatter from './';
 
 function mockStream(journal: Journal) {
   const stream = new Readable({ objectMode: true });
