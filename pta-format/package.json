@@ -1,0 +1,28 @@
+{
+  "name": "pta-format",
+  "version": "0.0.1",
+  "description": "Plain text accounting journal JS apis",
+  "main": "build/index.js",
+  "scripts": {
+    "prerelease": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kajyr/pta-tools.git"
+  },
+  "author": "Carlo 'kajyr' <carlo.panzi@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kajyr/pta-tools/issues"
+  },
+  "bin": {
+    "pta-format": "bin/pta-format"
+  },
+  "homepage": "https://github.com/kajyr/pta-tools/tree/main/pta-format",
+  "private": true,
+  "dependencies": {
+    "pta-tools": "^1.1.5",
+    "split2": "^4.1.0",
+    "temp": "^0.9.4"
+  }
+}

@@ -1,6 +1,9 @@
+import formatComment from './format-comment';
 import formatTransaction from './format-transaction';
+import Formatter from './formatter';
 import isTransaction from './is-transaction';
 import parse, { ParseResult } from './parse';
+import Transformer from './parse/transformer';
 import { Comment, Journal, Posting, Transaction } from './types';
 
 /**
@@ -10,6 +13,8 @@ type TransactionEntry = Posting;
 
 export {
   Comment,
+  formatComment,
+  Formatter,
   formatTransaction,
   isTransaction,
   Journal,
@@ -18,4 +23,5 @@ export {
   Posting,
   Transaction,
   TransactionEntry,
+  Transformer,
 };

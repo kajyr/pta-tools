@@ -1,0 +1,25 @@
+~ Monthly
+  Expenses:Bottoni  15 EUR
+  Assets:Banca
+
+2021-01-01 Opening Balance
+    Assets:Banca               1000 EUR
+    Equity:Opening Balances
+
+2021-06-02 Nulla
+    Assets:Banca                 20 EUR
+    Expenses:Groceries          -20 EUR
+
+; comment
+
+2021-11-02 Nulla ; comment
+    Assets:Banca                 40 EUR
+    Expenses:Groceries          -40 EUR
+
+P 2021-11-02 BNB 475 EUR
+
+
+
+
+
+

@@ -1,5 +1,5 @@
 {
-  "packages": ["pta-tools"],
+  "packages": ["pta-format", "pta-tools"],
   "version": "independent",
   "command": {
     "publish": {
