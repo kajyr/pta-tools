@@ -35,9 +35,21 @@ function formatPosting(posting: Posting): string {
   return str;
 }
 
+function formatHeader(trx: Transaction): string {
+  let str = formatDate(trx.date);
+  if (trx.confirmed) {
+    str = `${str} *`;
+  }
+  str = `${str} ${trx.description}`;
+  if (trx.comment) {
+    str = `${str} ; ${trx.comment}`;
+  }
+  str = str + `\n`;
+  return str;
+}
+
 function formatTransaction(trx: Transaction): string {
-  const dateStr = formatDate(trx.date);
-  let str = `${dateStr} ${trx.description}\n`;
+  let str = formatHeader(trx);
   for (const line of trx.entries) {
     if (isPosting(line)) {
       str = `${str}${INDENT}${formatPosting(line)}\n`;

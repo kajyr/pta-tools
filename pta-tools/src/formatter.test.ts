@@ -44,7 +44,7 @@ describe("Formatter", () => {
 
     const str = await readableToString(result);
 
-    expect(str).toBe(`2019-01-01 Supermarket
+    expect(str).toBe(`2019-01-01 Supermarket ; comment
     Expenses:Shopping            10
     Assets:Cash
     ; this is a comment

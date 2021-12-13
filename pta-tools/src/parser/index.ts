@@ -4,7 +4,7 @@ import { INDENT } from '../format-transaction';
 import { isTransaction } from '../type-guards';
 import { Comment, Transaction } from '../types';
 
-import parseHeaderLine from './parse-header';
+import parseHeader from './parse-header';
 import parsePosting from './parse-posting';
 
 function isDate(str: string): boolean {
@@ -26,6 +26,10 @@ function mkComment(str: string): Comment {
   return {
     message: clearComment(str),
   };
+}
+
+function mkTransaction(other: Partial<Transaction> = {}): Transaction {
+  return { date: new Date(), entries: [], ...other };
 }
 
 class Transformer extends Transform {
@@ -70,10 +74,7 @@ class Transformer extends Transform {
     if (isDate(broken[0])) {
       // a date starts a new chunk
       this.clearChunk();
-      this.chunk = {
-        ...parseHeaderLine(trimmed),
-        entries: [],
-      };
+      this.chunk = mkTransaction(parseHeader(trimmed));
     } else if (this.chunk && isTransaction(this.chunk)) {
       // it's a posting
       const entry = parsePosting(trimmed);
