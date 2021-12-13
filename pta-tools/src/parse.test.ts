@@ -1,10 +1,9 @@
 import { createReadStream } from 'fs';
 
-import mockStream from '../__mocks__/string-stream';
-import isComment from '../is-comment';
-import { Comment, Transaction } from '../types';
-
-import parse from './';
+import mockStream from './__mocks__/string-stream';
+import isComment from './is-comment';
+import parse from './parse';
+import { Comment, Transaction } from './types';
 
 describe("parse", () => {
   test("it works with file streams", async () => {

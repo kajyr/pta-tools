@@ -3,7 +3,7 @@ import formatTransaction from './format-transaction';
 import Formatter from './formatter';
 import isTransaction from './is-transaction';
 import parse, { ParseResult } from './parse';
-import Transformer from './parse/transformer';
+import Parser from './parser';
 import { Comment, Journal, Posting, Transaction } from './types';
 
 /**
@@ -19,9 +19,9 @@ export {
   isTransaction,
   Journal,
   parse,
+  Parser,
   ParseResult,
   Posting,
   Transaction,
   TransactionEntry,
-  Transformer,
 };

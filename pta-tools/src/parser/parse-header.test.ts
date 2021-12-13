@@ -1,4 +1,4 @@
-import { parseHeaderLine } from './transformer';
+import parseHeaderLine from './parse-header';
 
 describe("parseHeaderLine", () => {
   it("Confirmed and description", () => {
@@ -25,5 +25,3 @@ describe("parseHeaderLine", () => {
     });
   });
 });
-
-

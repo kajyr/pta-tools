@@ -1,16 +1,9 @@
 import split2 from 'split2';
 
-import getAccounts from '../get-accounts';
-import getCommodities from '../get-commodities';
-import isTransaction from '../is-transaction';
-import { Comment, Journal, Transaction } from '../types';
-
-import Transformer from './transformer';
-
-type Collectible = {
-  type: "never";
-  id: string;
-};
+import getAccounts from './get-accounts';
+import getCommodities from './get-commodities';
+import Parser from './parser';
+import { Comment, Journal, Transaction } from './types';
 
 export type ParseResult = {
   journal: Journal;
@@ -20,7 +13,7 @@ export type ParseResult = {
 
 function parse(stream: NodeJS.ReadableStream): Promise<ParseResult> {
   const trxs: Journal = [];
-  const transformer = new Transformer();
+  const transformer = new Parser();
 
   return new Promise((resolve, reject) => {
     stream
