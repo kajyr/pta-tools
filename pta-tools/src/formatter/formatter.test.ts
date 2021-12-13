@@ -1,5 +1,6 @@
 import { Readable } from 'stream';
 
+import { collect } from '../array';
 import { Journal } from '../types';
 
 import Formatter from './';
@@ -18,11 +19,7 @@ function mockStream(journal: Journal) {
 }
 
 async function readableToString(readable: Readable) {
-  let result = "";
-  for await (const chunk of readable) {
-    result += chunk;
-  }
-  return result;
+  return (await collect<string>(readable)).join("");
 }
 
 describe("Formatter", () => {

@@ -1,5 +1,6 @@
 import { Readable } from 'stream';
 
+import { collect } from '../array';
 import { isComment } from '../type-guards';
 import { Comment } from '../types';
 
@@ -16,14 +17,6 @@ function mockStream(str: string) {
   };
 
   return stream;
-}
-
-async function collect(readable: Readable) {
-  let result = [];
-  for await (const chunk of readable) {
-    result.push(chunk);
-  }
-  return result;
 }
 
 describe("Parser", () => {

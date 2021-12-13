@@ -18,4 +18,5 @@ export type Comment = {
   message: string;
 };
 
-export type Journal = (Transaction | Comment)[];
+export type JournalEntries = Transaction | Comment;
+export type Journal = JournalEntries[];

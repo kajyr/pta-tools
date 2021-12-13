@@ -1,10 +1,9 @@
 const { createReadStream } = require("fs");
-
-const { compose } = require("stream");
 const split2 = require("split2");
 const { Parser, Formatter } = require("pta-tools");
 const temp = require("temp");
 const { rename } = require("fs/promises");
+const { pipeline } = require("stream/promises");
 temp.track();
 
 async function main(args, useStdout) {
@@ -14,17 +13,17 @@ async function main(args, useStdout) {
 
   const parser = new Parser();
   const formatter = new Formatter();
-  const chain = compose(split2(), parser, formatter);
 
-  if (useStdout) {
-    readStream.pipe(chain).pipe(process.stdout);
-  } else {
-    readStream
-      .pipe(chain)
-      .pipe(write)
-      .on("finish", async () => {
-        await rename(write.path, file);
-      });
+  await pipeline(
+    readStream,
+    split2(),
+    parser,
+    formatter,
+    useStdout ? process.stdout : write
+  );
+
+  if (!useStdout) {
+    await rename(write.path, file);
   }
 }
 module.exports = main;

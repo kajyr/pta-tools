@@ -1,9 +1,10 @@
 import split2 from 'split2';
 
+import { collect } from './array';
 import getAccounts from './get-accounts';
 import getCommodities from './get-commodities';
 import Parser from './parser';
-import { Comment, Journal, Transaction } from './types';
+import { Journal, JournalEntries } from './types';
 
 export type ParseResult = {
   journal: Journal;
@@ -11,28 +12,18 @@ export type ParseResult = {
   commodities: string[];
 };
 
-function parse(stream: NodeJS.ReadableStream): Promise<ParseResult> {
-  const trxs: Journal = [];
+async function parse(stream: NodeJS.ReadableStream): Promise<ParseResult> {
   const transformer = new Parser();
 
-  return new Promise((resolve, reject) => {
-    stream
-      .pipe(split2())
-      .pipe(transformer)
-      .on("data", (data: Transaction | Comment) => {
-        trxs.push(data);
-      })
-      .on("end", () => {
-        resolve({
-          journal: trxs,
-          accounts: getAccounts(trxs),
-          commodities: getCommodities(trxs),
-        });
-      })
-      .on("error", () => {
-        reject();
-      });
-  });
+  const readable = stream.pipe(split2()).pipe(transformer);
+
+  const journal = await collect<JournalEntries>(readable);
+
+  return {
+    journal,
+    accounts: getAccounts(journal),
+    commodities: getCommodities(journal),
+  };
 }
 
 export default parse;
