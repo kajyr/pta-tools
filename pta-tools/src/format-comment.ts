@@ -1,7 +1,7 @@
 import { Comment } from './types';
 
 function formatComment(comment: Comment): string {
-  return `; ${comment.message}`;
+  return `; ${comment.message}\n\n`;
 }
 
 export default formatComment;

@@ -37,6 +37,15 @@ describe("Formatter", () => {
           { message: "this is a comment" },
         ],
       },
+      { message: "I should drink more" },
+      {
+        date: new Date("2019-01-02"),
+        description: "Yoox",
+        entries: [
+          { amount: 10, account: "Expenses:Shopping" },
+          { account: "Liabilities:Visa" },
+        ],
+      },
     ]);
     const formatter = new Formatter();
 
@@ -44,11 +53,19 @@ describe("Formatter", () => {
 
     const str = await readableToString(result);
 
-    expect(str).toBe(`2019-01-01 Supermarket ; comment
+    expect(str).toMatchInlineSnapshot(`
+"2019-01-01 Supermarket ; comment
     Expenses:Shopping            10
     Assets:Cash
     ; this is a comment
 
+; I should drink more
+
+2019-01-02 Yoox
+    Expenses:Shopping            10
+    Liabilities:Visa
+
+"
 `);
   });
 });

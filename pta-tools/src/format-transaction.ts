@@ -1,6 +1,5 @@
-import formatComment from './format-comment';
 import { isComment, isPosting } from './type-guards';
-import { Posting, Transaction } from './types';
+import { Comment, Posting, Transaction } from './types';
 
 export const INDENT = "    ";
 
@@ -14,6 +13,10 @@ function formatDate(date: string | Date) {
   if (day.length < 2) day = "0" + day;
 
   return [year, month, day].join("-");
+}
+
+function formatCommentInline(comment: Comment): string {
+  return `; ${comment.message}`;
 }
 
 const spaces = (num: number, min: number = 0): string =>
@@ -54,7 +57,7 @@ function formatTransaction(trx: Transaction): string {
     if (isPosting(line)) {
       str = `${str}${INDENT}${formatPosting(line)}\n`;
     } else if (isComment(line)) {
-      str = `${str}${INDENT}${formatComment(line)}\n`;
+      str = `${str}${INDENT}${formatCommentInline(line)}\n`;
     }
   }
 
