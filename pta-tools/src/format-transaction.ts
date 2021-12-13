@@ -1,4 +1,4 @@
-import { Transaction } from 'types';
+import { Transaction } from './types';
 
 function formatDate(date: string | Date) {
   var d = new Date(date),

@@ -8,7 +8,9 @@ import parse from './';
 
 describe("parse", () => {
   test("it works with file streams", async () => {
-    const readStream = createReadStream(`src/__mocks__/prova.journal`);
+    const readStream = createReadStream(
+      `pta-tools/src/__mocks__/prova.journal`
+    );
 
     const p = await parse(readStream);
     expect(p.journal.length).toBe(5);
@@ -120,7 +122,7 @@ describe("Comments", () => {
   });
 
   test("Finds comments inside transactions", async () => {
-    const stream = createReadStream(`src/__mocks__/prova.journal`);
+    const stream = createReadStream(`pta-tools/src/__mocks__/prova.journal`);
     const p = await parse(stream);
 
     const trx = p.journal.find(
