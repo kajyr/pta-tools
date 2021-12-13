@@ -1,6 +1,6 @@
 export type Posting = {
   account: string;
-  amount?: string;
+  amount?: string | number;
   commodity?: string;
   conversion?: { amount: string; commodity: string };
   is_rebalance?: boolean;

@@ -23,7 +23,7 @@ function formatTransaction(trx: Transaction): string {
 
     if (line.amount) {
       str = `${str}  ${spaces(
-        30 - line.account.length - line.amount.length,
+        30 - line.account.length - line.amount.toString().length,
         2
       )}${line.amount}`;
 
