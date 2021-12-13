@@ -2,8 +2,7 @@ import { createReadStream } from 'fs';
 
 import mockStream from './__mocks__/string-stream';
 import parse from './parse';
-import { isComment } from './type-guards';
-import { Comment, Transaction } from './types';
+import { Transaction } from './types';
 
 describe("parse", () => {
   test("it works with file streams", async () => {
@@ -98,28 +97,6 @@ describe("parse", () => {
 });
 
 describe("Comments", () => {
-  test("Finds out standalone comments", async () => {
-    const stream = mockStream(`
-      2021-11-02 * Some shopping
-      Expenses Groceries  30 EUR
-      Assets:Cash
-      
-      ; This is a comment
-
-      2021-11-02
-      Income:Salary:John        1000 USD
-      Assets:Bank      
-      `);
-
-    const p = await parse(stream);
-
-    expect(p.journal.length).toBe(3);
-    expect(isComment(p.journal[1])).toBe(true);
-
-    const c = p.journal[1] as Comment;
-    expect(c.message).toBe("This is a comment");
-  });
-
   test("Finds comments inside transactions", async () => {
     const stream = createReadStream(`pta-tools/src/__mocks__/prova.journal`);
     const p = await parse(stream);

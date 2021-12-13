@@ -1,4 +1,4 @@
-import { isTransaction } from './type-guards';
+import { isPosting, isTransaction } from './type-guards';
 import { Journal } from './types';
 
 type Temp = { k: string; n: number };
@@ -6,7 +6,9 @@ type Temp = { k: string; n: number };
 function getAccountsSorted(trxs: Journal): string[] {
   const obj = trxs
     .filter(isTransaction)
-    .flatMap((trx) => trx.entries.map((entry) => entry.account))
+    .flatMap((trx) =>
+      trx.entries.filter(isPosting).map((entry) => entry.account)
+    )
     .reduce((acc, cur) => {
       acc[cur] = (acc[cur] || 0) + 1;
       return acc;

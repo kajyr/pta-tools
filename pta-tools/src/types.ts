@@ -11,7 +11,7 @@ export type Transaction = {
   date: Date;
   description?: string;
   confirmed?: boolean;
-  entries: Posting[];
+  entries: (Posting | Comment)[];
 };
 
 export type Comment = {

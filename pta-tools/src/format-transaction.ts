@@ -1,4 +1,8 @@
-import { Transaction } from './types';
+import formatComment from './format-comment';
+import { isComment, isPosting } from './type-guards';
+import { Posting, Transaction } from './types';
+
+export const INDENT = "    ";
 
 function formatDate(date: string | Date) {
   var d = new Date(date),
@@ -15,24 +19,31 @@ function formatDate(date: string | Date) {
 const spaces = (num: number, min: number = 0): string =>
   Array(Math.max(num, min)).join(" ");
 
+function formatPosting(posting: Posting): string {
+  let str = `${posting.account}`;
+
+  if (posting.amount) {
+    str = `${str}  ${spaces(
+      30 - posting.account.length - posting.amount.toString().length,
+      2
+    )}${posting.amount}`;
+
+    if (posting.commodity) {
+      str = `${str} ${posting.commodity}`;
+    }
+  }
+  return str;
+}
+
 function formatTransaction(trx: Transaction): string {
   const dateStr = formatDate(trx.date);
   let str = `${dateStr} ${trx.description}\n`;
   for (const line of trx.entries) {
-    str = `${str}    ${line.account}`;
-
-    if (line.amount) {
-      str = `${str}  ${spaces(
-        30 - line.account.length - line.amount.toString().length,
-        2
-      )}${line.amount}`;
-
-      if (line.commodity) {
-        str = `${str} ${line.commodity}`;
-      }
+    if (isPosting(line)) {
+      str = `${str}${INDENT}${formatPosting(line)}\n`;
+    } else if (isComment(line)) {
+      str = `${str}${INDENT}${formatComment(line)}\n`;
     }
-
-    str = `${str}\n`;
   }
 
   str = str + `\n`;

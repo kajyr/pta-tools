@@ -1,5 +1,6 @@
 import { Transform } from 'stream';
 
+import { INDENT } from '../format-transaction';
 import { isTransaction } from '../type-guards';
 import { Comment, Transaction } from '../types';
 
@@ -14,15 +15,17 @@ function isComment(str: string): boolean {
   return /^;/.test(str);
 }
 
-function hasEntries(trx: any): boolean {
-  return isTransaction(trx) && trx.entries.length > 0;
-}
-
 /**
  * Removes the initial ; from the comment.
  */
 function clearComment(str: string): string {
   return str.replace(/^;\s*/, "");
+}
+
+function mkComment(str: string): Comment {
+  return {
+    message: clearComment(str),
+  };
 }
 
 class Transformer extends Transform {
@@ -42,14 +45,18 @@ class Transformer extends Transform {
   _transform(line: string, encoding: string, callback: Function) {
     const trimmed = line.trim();
     const broken = trimmed.split(/\s+/);
+    const isIndented = line.startsWith(INDENT);
+
     if (trimmed === "") {
       callback();
       return;
     }
     if (isComment(trimmed)) {
       // Either it is a comment alone
-      // or a comment within a transaction
-      if (isTransaction(this.chunk) && !hasEntries(this.chunk)) {
+      // or a comment within a transaction.
+      // If it is indented it belongs to the previous transaction.
+      if (isTransaction(this.chunk) && isIndented) {
+        this.chunk.entries.push(mkComment(trimmed));
         this.chunk.comment = clearComment(trimmed);
       } else {
         // a comment after some entries closes the transaction.

@@ -34,6 +34,7 @@ describe("Formatter", () => {
         entries: [
           { amount: 10, account: "Expenses:Shopping" },
           { account: "Assets:Cash" },
+          { message: "this is a comment" },
         ],
       },
     ]);
@@ -46,6 +47,7 @@ describe("Formatter", () => {
     expect(str).toBe(`2019-01-01 Supermarket
     Expenses:Shopping            10
     Assets:Cash
+    ; this is a comment
 
 `);
   });
