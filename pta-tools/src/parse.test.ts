@@ -11,7 +11,7 @@ describe("parse", () => {
     );
 
     const p = await parse(readStream);
-    expect(p.journal.length).toBe(5);
+    expect(p.journal.length).toBe(6);
   });
 
   test("it works with string streams", async () => {

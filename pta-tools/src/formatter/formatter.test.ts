@@ -36,6 +36,7 @@ describe("Formatter", () => {
         ],
       },
       { message: "I should drink more" },
+      { symbol: "P", data: "2021-11-02 LTC 173 EUR" },
       {
         date: new Date("2019-01-02"),
         description: "Yoox",
@@ -58,6 +59,8 @@ describe("Formatter", () => {
     ; this is a comment
 
 ; I should drink more
+
+P 2021-11-02 LTC 173 EUR
 
 2019-01-02 Yoox
     Expenses:Shopping            10

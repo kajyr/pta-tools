@@ -1,9 +1,10 @@
 import { Transform } from 'stream';
 
-import { isComment, isTransaction } from '../type-guards';
+import { isComment, isDirective, isTransaction } from '../type-guards';
 import { Comment, Transaction } from '../types';
 
 import formatComment from './format-comment';
+import formatDirective from './format-directive';
 import formatTransaction from './format-transaction';
 
 class Formatter extends Transform {
@@ -21,6 +22,8 @@ class Formatter extends Transform {
       this.push(formatTransaction(chunk));
     } else if (isComment(chunk)) {
       this.push(formatComment(chunk));
+    } else if (isDirective(chunk)) {
+      this.push(formatDirective(chunk));
     }
     callback();
     return;

@@ -2,7 +2,7 @@ import { Transform } from 'stream';
 
 import { INDENT } from '../formatter/format-transaction';
 import { isTransaction } from '../type-guards';
-import { Comment, Transaction } from '../types';
+import { Comment, Directive, JournalEntries, Transaction } from '../types';
 
 import parseHeader from './parse-header';
 import parsePosting from './parse-posting';
@@ -13,6 +13,10 @@ function isDate(str: string): boolean {
 
 function isComment(str: string): boolean {
   return /^;/.test(str);
+}
+
+function isDirective(str: string): boolean {
+  return /^P/.test(str);
 }
 
 /**
@@ -28,12 +32,16 @@ function mkComment(str: string): Comment {
   };
 }
 
+function mkDirective(str: string): Directive {
+  return { symbol: "P", data: str.replace(/^P\s*/, "") };
+}
+
 function mkTransaction(other: Partial<Transaction> = {}): Transaction {
   return { date: new Date(), entries: [], ...other };
 }
 
 class Transformer extends Transform {
-  chunk: Transaction | Comment | undefined;
+  chunk: JournalEntries | undefined;
   constructor() {
     super({
       objectMode: true,
@@ -68,6 +76,13 @@ class Transformer extends Transform {
         this.clearChunk();
         this.chunk = { message: clearComment(trimmed) };
       }
+      callback();
+      return;
+    }
+    if (isDirective(trimmed)) {
+      // a directive after some entries closes the transaction.
+      this.clearChunk();
+      this.chunk = mkDirective(trimmed);
       callback();
       return;
     }

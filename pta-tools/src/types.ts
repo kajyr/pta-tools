@@ -18,5 +18,11 @@ export type Comment = {
   message: string;
 };
 
-export type JournalEntries = Transaction | Comment;
+// This can be improved if needed
+export type Directive = {
+  symbol: "P";
+  data: string;
+};
+
+export type JournalEntries = Transaction | Comment | Directive;
 export type Journal = JournalEntries[];
