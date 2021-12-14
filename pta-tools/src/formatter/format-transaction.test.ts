@@ -1,17 +1,27 @@
-import { Transaction } from '../types';
+import { Posting, Transaction } from "../types";
 
-import formatTransaction from './format-transaction';
+import formatTransaction, { formatPosting } from "./format-transaction";
 
 describe("formatTransaction", () => {
   test("formats a basic trx", () => {
     const trx: Transaction = {
       date: new Date("2021-11-11"),
       description: "test",
-      entries: [{ account: "Assets:Cash", amount: "-100", commodity: "USD" }],
+      entries: [
+        { account: "Assets:Cash", amount: "10", commodity: "EUR" },
+        {
+          account: "Liabilities:Cards:VeryLongCardName",
+          amount: "-100",
+          commodity: "EUR",
+        },
+        { account: "Assets:Fineco", amount: "100", commodity: "EUR" },
+      ],
     };
     expect(formatTransaction(trx)).toMatchInlineSnapshot(`
 "2021-11-11 test
-    Assets:Cash                -100 USD
+    Assets:Cash                            10 EUR
+    Liabilities:Cards:VeryLongCardName   -100 EUR
+    Assets:Fineco                         100 EUR
 
 "
 `);
@@ -34,5 +44,27 @@ describe("formatTransaction", () => {
 
 "
 `);
+  });
+});
+
+describe("formatPosting", () => {
+  const suggested = 30;
+  test("Line width with short posts", () => {
+    const posting: Posting = {
+      account: "Account",
+      amount: "10",
+      commodity: "USD",
+    };
+    const formatted = formatPosting(posting, suggested);
+    expect(formatted.length).toBe(suggested);
+  });
+  test("Longer posts", () => {
+    const posting: Posting = {
+      account: "Liabilities:CreditCard:MyCreditCard",
+      amount: "10",
+      commodity: "USD",
+    };
+    const formatted = formatPosting(posting, suggested);
+    expect(formatted.length).toBeGreaterThan(suggested);
   });
 });

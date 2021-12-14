@@ -1,15 +1,29 @@
-import { Readable } from 'stream';
+import { Readable } from "stream";
 
-import { collect } from '../array';
-import { Journal } from '../types';
+import { collect } from "../array";
+import { Journal } from "../types";
 
-import Formatter from './';
+import Formatter from "./";
+import Parser from "../parser";
 
 function mockStream(journal: Journal) {
   const stream = new Readable({ objectMode: true });
 
   stream._read = function () {
     for (const item of journal) {
+      this.push(item);
+    }
+    this.push(null);
+  };
+
+  return stream;
+}
+
+function mockStringStream(str: string) {
+  const stream = new Readable({ objectMode: true });
+
+  stream._read = function () {
+    for (const item of str.split("\n")) {
       this.push(item);
     }
     this.push(null);
@@ -54,7 +68,7 @@ describe("Formatter", () => {
 
     expect(str).toMatchInlineSnapshot(`
 "2019-01-01 Supermarket ; comment
-    Expenses:Shopping            10
+    Expenses:Shopping                10
     Assets:Cash
     ; this is a comment
 
@@ -63,10 +77,50 @@ describe("Formatter", () => {
 P 2021-11-02 LTC 173 EUR
 
 2019-01-02 Yoox
-    Expenses:Shopping            10
+    Expenses:Shopping                10
     Liabilities:Visa
 
 "
 `);
+  });
+});
+
+describe("Parser + Formatter", () => {
+  test("Basics", async () => {
+    const initial = `2021-11-02 * Some shopping
+    Expenses Groceries           30 EUR
+    Assets:Cash
+
+; This is a comment non indented
+
+2021-11-02 
+    Income:Salary:John         1000 USD
+    Assets:Bank
+
+`;
+
+    const result = mockStringStream(initial)
+      .pipe(new Parser())
+      .pipe(new Formatter());
+
+    const str = await readableToString(result);
+
+    expect(str).toBe(initial);
+  });
+
+  test.skip("Virtual Postings", async () => {
+    const initial = `2021-11-02 * Some budgetting
+    [Expenses:Groceries]           30 EUR
+    [Assets:Cash]
+
+`;
+
+    const result = mockStringStream(initial)
+      .pipe(new Parser())
+      .pipe(new Formatter());
+
+    const str = await readableToString(result);
+
+    expect(str).toBe(initial);
   });
 });

@@ -1,7 +1,9 @@
-import { isComment, isPosting } from '../type-guards';
-import { Comment, Posting, Transaction } from '../types';
+import { spaces } from "../string";
+import { isComment, isPosting } from "../type-guards";
+import { Comment, Posting, Transaction } from "../types";
 
 export const INDENT = "    ";
+const SUGGESTED_LINE_WIDTH = 35;
 
 function formatDate(date: string | Date) {
   var d = new Date(date),
@@ -19,17 +21,13 @@ function formatCommentInline(comment: Comment): string {
   return `; ${comment.message}`;
 }
 
-const spaces = (num: number, min: number = 0): string =>
-  Array(Math.max(num, min)).join(" ");
+export function formatPosting(posting: Posting, lineWidth: number): string {
+  const sepCount = lineWidth - getPostingTextWidth(posting);
 
-function formatPosting(posting: Posting): string {
   let str = `${posting.account}`;
 
   if (posting.amount) {
-    str = `${str}  ${spaces(
-      30 - posting.account.length - posting.amount.toString().length,
-      2
-    )}${posting.amount}`;
+    str = `${str}${spaces(sepCount, 2)}${posting.amount}`;
 
     if (posting.commodity) {
       str = `${str} ${posting.commodity}`;
@@ -51,11 +49,25 @@ function formatHeader(trx: Transaction): string {
   return str;
 }
 
+function getPostingTextWidth(entry: Posting | Comment): number {
+  if (!isPosting(entry)) {
+    return 0;
+  }
+
+  const acc_len = entry.account.length;
+  const amount_len = (entry.amount || "").toString().length;
+  const commodity_len = entry.commodity ? entry.commodity.length + 1 : 0;
+  return acc_len + amount_len + commodity_len;
+}
+
 function formatTransaction(trx: Transaction): string {
   let str = formatHeader(trx);
+  const widths = trx.entries.map((entry) => getPostingTextWidth(entry) + 3);
+  widths.push(SUGGESTED_LINE_WIDTH);
+  const max = Math.max.apply(null, widths);
   for (const line of trx.entries) {
     if (isPosting(line)) {
-      str = `${str}${INDENT}${formatPosting(line)}\n`;
+      str = `${str}${INDENT}${formatPosting(line, max)}\n`;
     } else if (isComment(line)) {
       str = `${str}${INDENT}${formatCommentInline(line)}\n`;
     }
