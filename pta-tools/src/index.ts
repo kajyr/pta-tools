@@ -3,7 +3,7 @@ import formatComment from './formatter/format-comment';
 import formatTransaction from './formatter/format-transaction';
 import parse, { ParseResult } from './parse';
 import Parser from './parser';
-import { isTransaction } from './type-guards';
+import { isComment, isDirective, isPosting, isTransaction } from './type-guards';
 import { Comment, Journal, Posting, Transaction } from './types';
 
 /**
@@ -16,6 +16,9 @@ export {
   formatComment,
   Formatter,
   formatTransaction,
+  isComment,
+  isDirective,
+  isPosting,
   isTransaction,
   Journal,
   parse,
