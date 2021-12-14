@@ -123,4 +123,20 @@ describe("Parser + Formatter", () => {
 
     expect(str).toBe(initial);
   });
+
+  test("Rebalances", async () => {
+    const initial = `2021-11-02 * rebalance of some assets
+    Assets:Cash                  = 30 EUR
+    Equity:Rebalances
+
+`;
+
+    const result = mockStringStream(initial)
+      .pipe(new Parser())
+      .pipe(new Formatter());
+
+    const str = await readableToString(result);
+
+    expect(str).toBe(initial);
+  });
 });

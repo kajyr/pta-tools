@@ -31,13 +31,17 @@ function formatAccountName(posting: Posting): string {
   return posting.account;
 }
 
-export function formatPosting(posting: Posting, lineWidth: number): string {
+export function formatPosting(
+  posting: Posting,
+  lineWidth: number = SUGGESTED_LINE_WIDTH
+): string {
   const sepCount = lineWidth - getPostingTextWidth(posting);
 
   let str = formatAccountName(posting);
 
   if (posting.amount) {
-    str = `${str}${spaces(sepCount, 2)}${posting.amount}`;
+    const rebalance = posting.is_rebalance ? "= " : "";
+    str = `${str}${spaces(sepCount, 2)}${rebalance}${posting.amount}`;
 
     if (posting.commodity) {
       str = `${str} ${posting.commodity}`;

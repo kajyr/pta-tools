@@ -67,4 +67,16 @@ describe("formatPosting", () => {
     const formatted = formatPosting(posting, suggested);
     expect(formatted.length).toBeGreaterThan(suggested);
   });
+
+  test("Rebalance", () => {
+    const posting: Posting = {
+      account: "Liabilities:Cards",
+      amount: "-185.77",
+      commodity: "EUR",
+      is_rebalance: true,
+    };
+    expect(formatPosting(posting)).toEqual(
+      "Liabilities:Cards       = -185.77 EUR"
+    );
+  });
 });
