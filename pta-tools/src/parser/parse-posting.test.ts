@@ -1,4 +1,4 @@
-import parsePosting, { getAmount, getCommodity } from './parse-posting';
+import parsePosting, { getAmount, getCommodity } from "./parse-posting";
 
 describe("parsePosting", () => {
   test("Line with commodity", () => {
@@ -51,11 +51,13 @@ describe("parsePosting", () => {
   });
 
   test("Supports virtual postings", () => {
-    expect(
-      parsePosting("(Assets:Crypto)      -8.00 LTC @ 173.41 EUR").account
-    ).toBe("Assets:Crypto");
+    const posting = parsePosting("(Assets:Crypto)      -8.00 LTC @ 173.41 EUR");
+    expect(posting.account).toBe("Assets:Crypto");
+    expect(posting.is_virtual).toBe("round");
 
-    expect(parsePosting("[Assets:Crypto]").account).toBe("Assets:Crypto");
+    const posting2 = parsePosting("[Assets:Crypto]");
+    expect(posting2.account).toBe("Assets:Crypto");
+    expect(posting2.is_virtual).toBe("square");
   });
 
   test("Supports comments", () => {

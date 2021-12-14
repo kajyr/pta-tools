@@ -1,4 +1,4 @@
-import { Posting } from '../types';
+import { Posting, VirtualTypes } from "../types";
 
 export function getAmount(str: string): string | undefined {
   const matches = str.match(/[\-\+]?[0-9]*[\.0-9]+/);
@@ -18,37 +18,51 @@ export function getCommodity(str: string): string | undefined {
   }
 }
 
-function parseRebalance(account: string, values: string): Posting {
+function parseRebalance(
+  account: string,
+  values: string,
+  is_virtual: VirtualTypes
+): Posting {
   const amount = getAmount(values);
   const commodity = getCommodity(values);
 
-  return { account, is_rebalance: true, amount, commodity };
+  return { account, is_rebalance: true, amount, commodity, is_virtual };
 }
 
 function filterBrackets(str: string): string {
   return str.replace(/[\[\]()]/g, "");
 }
 
+function isVirtual(account: string): VirtualTypes {
+  if (account.startsWith("[")) {
+    return "square";
+  }
+  if (account.startsWith("(")) {
+    return "round";
+  }
+}
+
 function parsePosting(str: string): Posting {
   const matches = str.match(/^(.+?)\s{2,}(.+)$/);
 
   if (!matches) {
-    return { account: filterBrackets(str) };
+    return { account: filterBrackets(str), is_virtual: isVirtual(str) };
   }
 
   const account = filterBrackets(matches[1]);
+  const is_virtual = isVirtual(matches[1]);
   const values = matches[2];
 
   if (values.indexOf("=") > -1) {
     // Rebalance
-    return parseRebalance(account, values);
+    return parseRebalance(account, values, is_virtual);
   }
 
   if (values.indexOf("@") === -1) {
     // No conversion
     const amount = getAmount(values);
     const commodity = getCommodity(values);
-    return { amount, account, commodity };
+    return { amount, account, commodity, is_virtual };
   }
 
   const [ams, conversion] = values.split(/\s*@\s*/);
@@ -59,6 +73,7 @@ function parsePosting(str: string): Posting {
     amount,
     account,
     commodity,
+    is_virtual,
   };
 
   const c_amount = getAmount(conversion);

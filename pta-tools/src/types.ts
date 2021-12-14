@@ -1,9 +1,12 @@
+export type VirtualTypes = "round" | "square" | undefined;
+
 export type Posting = {
   account: string;
   amount?: string | number;
   commodity?: string;
   conversion?: { amount: string; commodity: string };
   is_rebalance?: boolean;
+  is_virtual?: VirtualTypes;
 };
 
 export type Transaction = {

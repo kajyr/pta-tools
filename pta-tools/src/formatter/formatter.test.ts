@@ -108,9 +108,9 @@ describe("Parser + Formatter", () => {
     expect(str).toBe(initial);
   });
 
-  test.skip("Virtual Postings", async () => {
+  test("Virtual Postings", async () => {
     const initial = `2021-11-02 * Some budgetting
-    [Expenses:Groceries]           30 EUR
+    [Expenses:Groceries]         30 EUR
     [Assets:Cash]
 
 `;

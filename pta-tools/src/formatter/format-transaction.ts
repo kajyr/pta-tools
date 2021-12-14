@@ -21,10 +21,20 @@ function formatCommentInline(comment: Comment): string {
   return `; ${comment.message}`;
 }
 
+function formatAccountName(posting: Posting): string {
+  if (posting.is_virtual === "round") {
+    return `(${posting.account})`;
+  }
+  if (posting.is_virtual === "square") {
+    return `[${posting.account}]`;
+  }
+  return posting.account;
+}
+
 export function formatPosting(posting: Posting, lineWidth: number): string {
   const sepCount = lineWidth - getPostingTextWidth(posting);
 
-  let str = `${posting.account}`;
+  let str = formatAccountName(posting);
 
   if (posting.amount) {
     str = `${str}${spaces(sepCount, 2)}${posting.amount}`;
@@ -54,7 +64,7 @@ function getPostingTextWidth(entry: Posting | Comment): number {
     return 0;
   }
 
-  const acc_len = entry.account.length;
+  const acc_len = formatAccountName(entry).length;
   const amount_len = (entry.amount || "").toString().length;
   const commodity_len = entry.commodity ? entry.commodity.length + 1 : 0;
   return acc_len + amount_len + commodity_len;
