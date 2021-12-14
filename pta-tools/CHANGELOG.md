@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/kajyr/pta-tools/compare/pta-tools@1.2.0...pta-tools@1.3.0) (2021-12-14)
+
+
+### Features
+
+* exported various type guards ([6d0ab76](https://github.com/kajyr/pta-tools/commit/6d0ab768b048b07566108f7e2243517113b452d4))
+
+
+
+
+
 # [1.2.0](https://github.com/kajyr/pta-tools/compare/pta-tools@1.1.5...pta-tools@1.2.0) (2021-12-13)
 
 
