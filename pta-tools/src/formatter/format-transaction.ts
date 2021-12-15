@@ -1,21 +1,11 @@
-import { spaces } from "../string";
-import { isComment, isPosting } from "../type-guards";
-import { Comment, Posting, Transaction } from "../types";
+import { spaces } from '../string';
+import { isComment, isPosting } from '../type-guards';
+import { Comment, Posting, Transaction } from '../types';
+
+import formatDate from './format-date';
 
 export const INDENT = "    ";
 const SUGGESTED_LINE_WIDTH = 35;
-
-function formatDate(date: string | Date) {
-  var d = new Date(date),
-    month = "" + (d.getMonth() + 1),
-    day = "" + d.getDate(),
-    year = d.getFullYear();
-
-  if (month.length < 2) month = "0" + month;
-  if (day.length < 2) day = "0" + day;
-
-  return [year, month, day].join("-");
-}
 
 function formatCommentInline(comment: Comment): string {
   return `; ${comment.message}`;

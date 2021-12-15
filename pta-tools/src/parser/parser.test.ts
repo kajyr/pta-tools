@@ -1,6 +1,7 @@
 import { Readable } from 'stream';
 
 import { collect } from '../array';
+import formatDate from '../formatter/format-date';
 import { isComment, isDirective } from '../type-guards';
 import { Comment, Directive, Transaction } from '../types';
 
@@ -59,15 +60,14 @@ P 2021-11-02 LTC 173 EUR
     Assets:Bank      
       `);
 
-    const parser = new Parser();
-
-    const result = await collect(stream.pipe(parser));
+    const result = await collect(stream.pipe(new Parser()));
 
     expect(result.length).toBe(3);
     expect(isDirective(result[1])).toBe(true);
 
     const d = result[1] as Directive;
-    expect(d.data).toBe("2021-11-02 LTC 173 EUR");
+    expect(formatDate(d.date)).toBe("2021-11-02");
+    expect(d.content).toBe("LTC 173 EUR");
   });
 
   test("Comments in entries", async () => {

@@ -1,8 +1,9 @@
 import { Transform } from 'stream';
 
 import { isTransaction } from '../type-guards';
-import { Comment, Directive, JournalEntries, Transaction } from '../types';
+import { Comment, JournalEntries, Transaction } from '../types';
 
+import parseDirective from './parse-directive';
 import parseHeader from './parse-header';
 import parsePosting from './parse-posting';
 
@@ -29,10 +30,6 @@ function mkComment(str: string): Comment {
   return {
     message: clearComment(str),
   };
-}
-
-function mkDirective(str: string): Directive {
-  return { symbol: "P", data: str.replace(/^P\s*/, "") };
 }
 
 function mkTransaction(other: Partial<Transaction> = {}): Transaction {
@@ -73,7 +70,8 @@ class Transformer extends Transform {
         // a comment after some entries closes the transaction.
         // a comment within a transaction can be only after the date
         this.clearChunk();
-        this.chunk = { message: clearComment(trimmed) };
+        // a comment is considered a one-liner
+        this.push(mkComment(trimmed));
       }
       callback();
       return;
@@ -81,7 +79,9 @@ class Transformer extends Transform {
     if (isDirective(trimmed)) {
       // a directive after some entries closes the transaction.
       this.clearChunk();
-      this.chunk = mkDirective(trimmed);
+      // also directives are one liners
+      // so we don't need to store them in the chunker
+      this.push(parseDirective(trimmed));
       callback();
       return;
     }

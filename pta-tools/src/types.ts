@@ -23,8 +23,9 @@ export type Comment = {
 
 // This can be improved if needed
 export type Directive = {
-  symbol: "P";
-  data: string;
+  symbol: string;
+  date: Date;
+  content: string;
 };
 
 export type JournalEntries = Transaction | Comment | Directive;

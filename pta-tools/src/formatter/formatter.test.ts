@@ -1,10 +1,10 @@
-import { Readable } from "stream";
+import { Readable } from 'stream';
 
-import { collect } from "../array";
-import { Journal } from "../types";
+import { collect } from '../array';
+import Parser from '../parser';
+import { Journal } from '../types';
 
-import Formatter from "./";
-import Parser from "../parser";
+import Formatter from './';
 
 function mockStream(journal: Journal) {
   const stream = new Readable({ objectMode: true });
@@ -50,7 +50,11 @@ describe("Formatter", () => {
         ],
       },
       { message: "I should drink more" },
-      { symbol: "P", data: "2021-11-02 LTC 173 EUR" },
+      {
+        symbol: "P",
+        date: new Date("2021-11-02"),
+        content: "LTC 173 EUR",
+      },
       {
         date: new Date("2019-01-02"),
         description: "Yoox",

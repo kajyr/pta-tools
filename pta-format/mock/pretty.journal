@@ -2,8 +2,6 @@
     Assets:Banca                 40 EUR
     Expenses:Groceries          -40 EUR
 
-P 2021-11-02 BNB 475 EUR
-
 2021-01-01 Opening Balance
     Assets:Banca               1000 EUR
     Equity:Opening Balances
@@ -13,6 +11,8 @@ P 2021-11-02 BNB 475 EUR
     Expenses:Groceries          -20 EUR
 
 ; comment
+
+P 2021-11-02 BNB 475 EUR
 
 2023-03-02 Bar
     Expenses:Breakfast            2 EUR
