@@ -2,4 +2,4 @@
 
 const main = require("../src");
 
-main(process.argv.slice(2), false);
+main(process.argv.slice(2), { useStdout: false });

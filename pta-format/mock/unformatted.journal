@@ -6,14 +6,14 @@
     Assets:Banca                   1000 EUR
     Equity:Opening Balances
 
-2021-06-02 Nulla
+2021-08-02 Nulla
     ; comment
     Assets:Banca            20 EUR
     Expenses:Groceries                   -20 EUR
 
 ;comment
 
-2021-11-02 Nulla ; comment
+2021-06-02 Nulla ; comment
     Assets:Banca                            40 EUR
     Expenses:Groceries         -40 EUR
 
