@@ -1,6 +1,6 @@
 {
   "name": "pta-tools",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Plain text accounting journal JS apis",
   "main": "build/index.js",
   "scripts": {

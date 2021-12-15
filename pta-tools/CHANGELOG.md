@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/kajyr/pta-tools/compare/pta-tools@1.3.0...pta-tools@1.4.0) (2021-12-15)
+
+
+### Bug Fixes
+
+* Duplicate match of comments in postings ([ae94d49](https://github.com/kajyr/pta-tools/commit/ae94d497998eec50d18dbfad399157de768bccbc))
+* spaces in formatPostings ([ae330ea](https://github.com/kajyr/pta-tools/commit/ae330ea44c50aaf940a327c39fd5a3302cf85ef5))
+
+
+### Features
+
+* directives date matching ([be559e5](https://github.com/kajyr/pta-tools/commit/be559e5d81aa40cc67c180194d866241e5c751db))
+* Support for formatting rebalance postings ([4285dac](https://github.com/kajyr/pta-tools/commit/4285dac585d328ae4c9cdfb0223a5324ff03fda9))
+* Support for formatting virtual postings ([467676e](https://github.com/kajyr/pta-tools/commit/467676e0d03c027ca486d809a260c438eb77aad3))
+
+
+
+
+
 # [1.3.0](https://github.com/kajyr/pta-tools/compare/pta-tools@1.2.0...pta-tools@1.3.0) (2021-12-14)
 
 
