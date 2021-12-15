@@ -19,7 +19,6 @@
     "pta-format": "bin/pta-format"
   },
   "homepage": "https://github.com/kajyr/pta-tools/tree/main/pta-format",
-  "private": true,
   "dependencies": {
     "pta-tools": "^1.1.5",
     "split2": "^4.1.0",
