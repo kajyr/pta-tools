@@ -2,7 +2,8 @@ import { createReadStream } from 'fs';
 
 import mockStream from './__mocks__/string-stream';
 import parse from './parse';
-import { Transaction } from './types';
+import { isComment } from './type-guards';
+import { Comment, Transaction } from './types';
 
 describe("parse", () => {
   test("it works with file streams", async () => {
@@ -102,9 +103,10 @@ describe("Comments", () => {
     const p = await parse(stream);
 
     const trx = p.journal.find(
-      (t) => (t as Transaction).description === "Nulla"
+      (t) => (t as Transaction).description === "Comment in entries"
     ) as Transaction;
 
-    expect(trx.comment).toBe("comment");
+    expect(isComment(trx.entries[0])).toBe(true);
+    expect((trx.entries[0] as Comment).message).toBe("comment");
   });
 });

@@ -1,6 +1,5 @@
 import { Transform } from 'stream';
 
-import { INDENT } from '../formatter/format-transaction';
 import { isTransaction } from '../type-guards';
 import { Comment, Directive, JournalEntries, Transaction } from '../types';
 
@@ -57,7 +56,8 @@ class Transformer extends Transform {
   _transform(line: string, encoding: string, callback: Function) {
     const trimmed = line.trim();
     const broken = trimmed.split(/\s+/);
-    const isIndented = line.startsWith(INDENT);
+    // at least 2 spaces, even if it's not proper indented with other entries
+    const isIndented = line.startsWith("  ");
 
     if (trimmed === "") {
       callback();
@@ -69,7 +69,6 @@ class Transformer extends Transform {
       // If it is indented it belongs to the previous transaction.
       if (isTransaction(this.chunk) && isIndented) {
         this.chunk.entries.push(mkComment(trimmed));
-        this.chunk.comment = clearComment(trimmed);
       } else {
         // a comment after some entries closes the transaction.
         // a comment within a transaction can be only after the date

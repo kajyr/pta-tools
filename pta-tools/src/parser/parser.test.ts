@@ -2,7 +2,7 @@ import { Readable } from 'stream';
 
 import { collect } from '../array';
 import { isComment, isDirective } from '../type-guards';
-import { Comment, Directive } from '../types';
+import { Comment, Directive, Transaction } from '../types';
 
 import Parser from './';
 
@@ -68,5 +68,32 @@ P 2021-11-02 LTC 173 EUR
 
     const d = result[1] as Directive;
     expect(d.data).toBe("2021-11-02 LTC 173 EUR");
+  });
+
+  test("Comments in entries", async () => {
+    const stream = mockStream(`
+2021-11-02 * Some shopping
+    ; my oh my
+    Expenses Groceries  30 EUR
+    Assets:Cash
+  `);
+
+    const [result] = await collect<Transaction>(stream.pipe(new Parser()));
+
+    expect(result.comment).toBeUndefined();
+    expect(result.entries.length).toBe(3);
+  });
+
+  test("Comments in header", async () => {
+    const stream = mockStream(`
+2021-11-02 * Some shopping ; wowoo
+    Expenses Groceries  30 EUR
+    Assets:Cash
+  `);
+
+    const [result] = await collect<Transaction>(stream.pipe(new Parser()));
+
+    expect(result.comment).toBe("wowoo");
+    expect(result.entries.length).toBe(2);
   });
 });
