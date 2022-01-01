@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.1](https://github.com/kajyr/pta-tools/compare/pta-tools@1.5.0...pta-tools@1.5.1) (2022-01-01)
+
+
+### Bug Fixes
+
+* removed file ([72926eb](https://github.com/kajyr/pta-tools/commit/72926ebc4e3ca1b2ce00cca1d75a0dfb4fab30eb))
+
+
+
+
+
 # [1.5.0](https://github.com/kajyr/pta-tools/compare/pta-tools@1.4.0...pta-tools@1.5.0) (2022-01-01)
 
 
