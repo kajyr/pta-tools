@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/kajyr/pta-tools/compare/pta-tools@1.4.0...pta-tools@1.5.0) (2022-01-01)
+
+
+### Features
+
+* Support for balance assertions and balance assignements ([f1fe19d](https://github.com/kajyr/pta-tools/commit/f1fe19d601ca124675722aef2d0952b23e2e7f91))
+
+
+
+
+
 # [1.4.0](https://github.com/kajyr/pta-tools/compare/pta-tools@1.3.0...pta-tools@1.4.0) (2021-12-15)
 
 
