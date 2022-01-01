@@ -1,6 +1,6 @@
 import { spaces } from '../string';
 import { isComment, isPosting } from '../type-guards';
-import { Comment, Posting, Transaction } from '../types';
+import { AmountType, Comment, Posting, Transaction } from '../types';
 
 import formatDate from './format-date';
 
@@ -21,21 +21,34 @@ function formatAccountName(posting: Posting): string {
   return posting.account;
 }
 
+function formatAmountCommodity(amount: AmountType, commodity?: string): string {
+  if (commodity) {
+    return `${amount} ${commodity}`;
+  }
+  return amount.toString();
+}
+
 export function formatPosting(
   posting: Posting,
   lineWidth: number = SUGGESTED_LINE_WIDTH
 ): string {
   const sepCount = lineWidth - getPostingTextWidth(posting);
-
   let str = formatAccountName(posting);
 
-  if (posting.amount) {
-    const rebalance = posting.is_rebalance ? "= " : "";
-    str = `${str}${spaces(sepCount, 2)}${rebalance}${posting.amount}`;
+  const needsSpaces = !!(posting.amount || posting.balance);
 
-    if (posting.commodity) {
-      str = `${str} ${posting.commodity}`;
-    }
+  if (needsSpaces) {
+    str = `${str}${spaces(sepCount, 2)}`;
+  }
+
+  if (posting.amount) {
+    str = `${str}${formatAmountCommodity(posting.amount, posting.commodity)}`;
+  }
+  if (posting.balance) {
+    str = `${str} = ${formatAmountCommodity(
+      posting.balance.amount,
+      posting.balance.commodity
+    )}`;
   }
   return str;
 }

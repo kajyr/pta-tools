@@ -1,4 +1,4 @@
-import parsePosting, { getAmount, getCommodity } from "./parse-posting";
+import parsePosting, { getAmount, getCommodity } from './parse-posting';
 
 describe("parsePosting", () => {
   test("Line with commodity", () => {
@@ -41,12 +41,19 @@ describe("parsePosting", () => {
     });
   });
 
-  test("Rebalance", () => {
+  test("Balances assignments", () => {
     expect(parsePosting("Liabilities:Cards     = -185.77 EUR")).toEqual({
       account: "Liabilities:Cards",
-      amount: "-185.77",
+      balance: { amount: "-185.77", commodity: "EUR" },
+    });
+  });
+
+  test("Balances assertion", () => {
+    expect(parsePosting("Liabilities:Cards   30 EUR  = -150 EUR")).toEqual({
+      account: "Liabilities:Cards",
+      amount: "30",
       commodity: "EUR",
-      is_rebalance: true,
+      balance: { amount: "-150", commodity: "EUR" },
     });
   });
 

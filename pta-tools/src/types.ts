@@ -1,11 +1,13 @@
 export type VirtualTypes = "round" | "square" | undefined;
 
+export type AmountType = string | number;
+
 export type Posting = {
   account: string;
-  amount?: string | number;
+  amount?: AmountType;
   commodity?: string;
-  conversion?: { amount: string; commodity: string };
-  is_rebalance?: boolean;
+  conversion?: { amount: AmountType; commodity: string };
+  balance?: { amount: AmountType; commodity?: string };
   is_virtual?: VirtualTypes;
 };
 

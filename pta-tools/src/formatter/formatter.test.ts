@@ -130,7 +130,8 @@ describe("Parser + Formatter", () => {
 
   test("Rebalances", async () => {
     const initial = `2021-11-02 * rebalance of some assets
-    Assets:Cash                  = 30 EUR
+    Assets:Cash                         = 30 EUR
+    Assets:Bank                 150 EUR = 200 EUR
     Equity:Rebalances
 
 `;

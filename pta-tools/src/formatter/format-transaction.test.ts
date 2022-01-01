@@ -1,6 +1,6 @@
-import { Posting, Transaction } from "../types";
+import { Posting, Transaction } from '../types';
 
-import formatTransaction, { formatPosting } from "./format-transaction";
+import formatTransaction, { formatPosting } from './format-transaction';
 
 describe("formatTransaction", () => {
   test("formats a basic trx", () => {
@@ -68,15 +68,26 @@ describe("formatPosting", () => {
     expect(formatted.length).toBeGreaterThan(suggested);
   });
 
-  test("Rebalance", () => {
+  test("Balance assignment", () => {
     const posting: Posting = {
       account: "Liabilities:Cards",
-      amount: "-185.77",
+      amount: "30",
       commodity: "EUR",
-      is_rebalance: true,
+      balance: { amount: "-150", commodity: "EUR" },
     };
-    expect(formatPosting(posting)).toEqual(
-      "Liabilities:Cards       = -185.77 EUR"
+    expect(formatPosting(posting)).toBe(
+      "Liabilities:Cards            30 EUR = -150 EUR"
+    );
+  });
+
+  test("Balance assertion", () => {
+    const posting: Posting = {
+      account: "Liabilities:Cards",
+      balance: { amount: "-150", commodity: "EUR" },
+    };
+
+    expect(formatPosting(posting)).toBe(
+      "Liabilities:Cards                   = -150 EUR"
     );
   });
 });

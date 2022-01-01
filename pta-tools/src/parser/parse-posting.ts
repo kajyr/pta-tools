@@ -1,4 +1,6 @@
-import { Posting, VirtualTypes } from "../types";
+import { Posting, VirtualTypes } from '../types';
+
+import parseBalance, { isBalanceLine } from './parse-balance';
 
 export function getAmount(str: string): string | undefined {
   const matches = str.match(/[\-\+]?[0-9]*[\.0-9]+/);
@@ -16,17 +18,6 @@ export function getCommodity(str: string): string | undefined {
   if (matches) {
     return matches[0];
   }
-}
-
-function parseRebalance(
-  account: string,
-  values: string,
-  is_virtual: VirtualTypes
-): Posting {
-  const amount = getAmount(values);
-  const commodity = getCommodity(values);
-
-  return { account, is_rebalance: true, amount, commodity, is_virtual };
 }
 
 function filterBrackets(str: string): string {
@@ -53,9 +44,8 @@ function parsePosting(str: string): Posting {
   const is_virtual = isVirtual(matches[1]);
   const values = matches[2];
 
-  if (values.indexOf("=") > -1) {
-    // Rebalance
-    return parseRebalance(account, values, is_virtual);
+  if (isBalanceLine(values)) {
+    return parseBalance(account, values, is_virtual);
   }
 
   if (values.indexOf("@") === -1) {
