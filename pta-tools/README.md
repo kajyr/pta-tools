@@ -4,7 +4,7 @@
 
 Plain text accounting JS helpers to interact with the ledger / hledger journal file format.
 
-On the TS / JS side Transactions are described by the [Transaction](src/types.ts) type
+On the TS / JS side Transactions are described by the [Transaction](pta-tools/src/types.ts) type
 
 ## Apis
 
