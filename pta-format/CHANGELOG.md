@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/kajyr/pta-tools/compare/pta-format@0.1.2...pta-format@0.2.0) (2022-01-17)
+
+
+### Features
+
+* Support for multiple files in input ([dba556f](https://github.com/kajyr/pta-tools/commit/dba556f0d4ddbd81135a882e41a3d100f97968d1))
+
+
+
+
+
 ## [0.1.2](https://github.com/kajyr/pta-tools/compare/pta-format@0.1.1...pta-format@0.1.2) (2022-01-01)
 
 **Note:** Version bump only for package pta-format
