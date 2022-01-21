@@ -14,3 +14,6 @@ to review changes.
 `npx pta-format <files>`
 
 ## Options
+
+- `--stdout` - Use stdout instead of overwriting the file Defaults to false.
+- `--sort` - Sort transactions. Defaults to true

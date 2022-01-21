@@ -1,5 +1,16 @@
 #!/usr/bin/env node
 
+/**
+ * Cli options
+ * --stdout - Use stdout instead of overwriting the file Defaults to false.
+ * --sort   - Sort transactions. Defaults to true
+ */
+
+const mclip = require("mclip");
 const main = require("../src");
 
-main(process.argv.slice(2), { useStdout: false });
+const options = mclip(process.argv);
+
+const { list, ...rest } = options;
+
+main(list, rest);

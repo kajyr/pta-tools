@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/kajyr/pta-tools/tree/main/pta-format",
   "dependencies": {
-    "mclip": "^0.2.0",
+    "mclip": "^0.2.1",
     "pta-tools": "^1.5.1",
     "split2": "^4.1.0",
     "temp": "^0.9.4",
