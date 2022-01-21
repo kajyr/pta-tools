@@ -1,12 +1,12 @@
 # Plain text acounting node js api
 
-[![Build Status](https://app.travis-ci.com/kajyr/pta-journal.svg?branch=main)](https://app.travis-ci.com/kajyr/pta-journal)
+[![Build Status](https://app.travis-ci.com/kajyr/pta-tools.svg?branch=main)](https://app.travis-ci.com/kajyr/pta-tools)
 
 Plain text accounting JS helpers to interact with the ledger / hledger journal file format.
 
 On the TS / JS side Transactions are described by the [Transaction](src/types.ts) type
 
-## Apis
+## Main APIs
 
 ### formatTransaction
 
