@@ -1,6 +1,6 @@
 # PTA Journals node js api
 
-[![Build Status](https://app.travis-ci.com/kajyr/pta-tools.svg?branch=main)](https://app.travis-ci.com/kajyr/pta-tools)
+[![Build Status](https://github.com/kajyr/pta-tools/workflows/test/badge.svg)](https://github.com/kajyr/pta-tools/actions)
 
 See individual packages for informations:
 
