@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/kajyr/pta-tools/compare/pta-format@0.2.0...pta-format@0.2.1) (2022-07-13)
+
+**Note:** Version bump only for package pta-format
+
+
+
+
+
 # [0.2.0](https://github.com/kajyr/pta-tools/compare/pta-format@0.1.2...pta-format@0.2.0) (2022-01-17)
 
 
