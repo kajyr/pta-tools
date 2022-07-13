@@ -1,7 +1,7 @@
-import { Comment, Directive, Posting, Transaction } from './types';
+import { Comment, Directive, Posting, Transaction } from "./types";
 
 export function isTransaction(data: any): data is Transaction {
-  return data?.date instanceof Date && data?.entries instanceof Array;
+  return data?.entries instanceof Array;
 }
 
 export function isComment(data: any): data is Comment {

@@ -13,7 +13,7 @@ export type Posting = {
 
 export type Transaction = {
   comment?: string;
-  date: Date;
+  date: Date | string; // When serialized back and forth data might end up as a string
   description?: string;
   confirmed?: boolean;
   entries: (Posting | Comment)[];
