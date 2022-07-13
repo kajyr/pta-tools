@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "test": "jest",
-    "prerelease": "npm run build",
+    "release": "lerna publish",
     "prepare": "husky install",
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
