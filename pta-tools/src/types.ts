@@ -26,7 +26,7 @@ export type Comment = {
 // This can be improved if needed
 export type Directive = {
   symbol: string;
-  date: Date;
+  date: Date | string;
   content: string;
 };
 
