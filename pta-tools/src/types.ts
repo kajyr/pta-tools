@@ -11,12 +11,14 @@ export type Posting = {
   is_virtual?: VirtualTypes;
 };
 
+export type TrxEntry = Posting | Comment;
+
 export type Transaction = {
   comment?: string;
   date: Date | string; // When serialized back and forth data might end up as a string
   description?: string;
   confirmed?: boolean;
-  entries: (Posting | Comment)[];
+  entries: TrxEntry[];
 };
 
 export type Comment = {

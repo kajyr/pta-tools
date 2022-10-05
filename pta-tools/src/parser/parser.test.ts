@@ -1,11 +1,11 @@
-import { Readable } from 'stream';
+import { Readable } from "stream";
 
-import { collect } from '../array';
-import formatDate from '../formatter/format-date';
-import { isComment, isDirective } from '../type-guards';
-import { Comment, Directive, Transaction } from '../types';
+import { collect } from "../array";
+import formatDate from "../formatter/format-date";
+import { isComment, isDirective } from "../type-guards";
+import { Comment, Directive, Posting, Transaction } from "../types";
 
-import Parser from './';
+import Parser from "./";
 
 function mockStream(str: string) {
   const stream = new Readable({ objectMode: true });

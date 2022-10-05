@@ -1,11 +1,11 @@
-import { Transform } from 'stream';
+import { Transform } from "stream";
 
-import { isTransaction } from '../type-guards';
-import { Comment, JournalEntries, Transaction } from '../types';
+import { isTransaction } from "../type-guards";
+import { Comment, JournalEntries, Transaction } from "../types";
 
-import parseDirective from './parse-directive';
-import parseHeader from './parse-header';
-import parsePosting from './parse-posting';
+import parseDirective from "./parse-directive";
+import parseHeader from "./parse-header";
+import parsePosting from "./parse-posting";
 
 function isDate(str: string): boolean {
   return /^\d{4}-\d{2}-\d{2}$/.test(str);
