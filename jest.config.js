@@ -6,8 +6,10 @@ module.exports = {
   },
   setupFiles: [],
   testMatch: ["**/*.test.ts", "**/*.test.tsx", "**/*.test.js"],
-  testURL: "http://localhost/",
   transform: {
     "^.+\\.tsx?$": "ts-jest",
+  },
+  testEnvironmentOptions: {
+    url: "http://localhost/",
   },
 };
