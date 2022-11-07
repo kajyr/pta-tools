@@ -1,6 +1,6 @@
 {
   "name": "pta-format",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Plain text accounting journal JS apis",
   "main": "build/index.js",
   "scripts": {
@@ -21,7 +21,7 @@
   "homepage": "https://github.com/kajyr/pta-tools/tree/main/pta-format",
   "dependencies": {
     "mclip": "^0.2.1",
-    "pta-tools": "^1.5.2",
+    "pta-tools": "^1.6.0",
     "split2": "^4.1.0",
     "temp": "^0.9.4",
     "through2": "^4.0.2"

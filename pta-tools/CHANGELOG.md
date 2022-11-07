@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/kajyr/pta-tools/compare/pta-tools@1.5.2...pta-tools@1.6.0) (2022-11-07)
+
+
+### Bug Fixes
+
+* Directives dates can also be a string ([f117fe9](https://github.com/kajyr/pta-tools/commit/f117fe9c9492cbfce65946ee582844eb17d99fd4))
+
+
+### Features
+
+* Accept dates with slashes, fix [#5](https://github.com/kajyr/pta-tools/issues/5) ([#6](https://github.com/kajyr/pta-tools/issues/6)) ([71a3308](https://github.com/kajyr/pta-tools/commit/71a3308d79cc543e37be36f6e0eeb465a6eb542d))
+* Added groupMonthly function, to create a montly recap ([4474db8](https://github.com/kajyr/pta-tools/commit/4474db8bc6f9acbd418d8acfe8f558d3a20221ba))
+
+
+
+
+
 ## [1.5.2](https://github.com/kajyr/pta-tools/compare/pta-tools@1.5.1...pta-tools@1.5.2) (2022-07-13)
 
 
