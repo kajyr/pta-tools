@@ -96,4 +96,17 @@ P 2021-11-02 LTC 173 EUR
     expect(result.comment).toBe("wowoo");
     expect(result.entries.length).toBe(2);
   });
+
+  test("Dates with slashes in header", async () => {
+    const stream = mockStream(`
+2021/11/02 * Some shopping
+    Expenses Groceries  30 EUR
+    Assets:Cash
+  `);
+
+    const [result] = await collect<Transaction>(stream.pipe(new Parser()));
+
+    expect(formatDate(result.date)).toBe("2021-11-02");
+    expect(result.entries.length).toBe(2);
+  });
 });
