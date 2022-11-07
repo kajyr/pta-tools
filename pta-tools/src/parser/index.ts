@@ -8,7 +8,7 @@ import parseHeader from "./parse-header";
 import parsePosting from "./parse-posting";
 
 function isDate(str: string): boolean {
-  return /^\d{4}-\d{2}-\d{2}$/.test(str);
+  return /^\d{4}-\d{2}-\d{2}$/.test(str) || /^\d{4}\/\d{2}\/\d{2}$/.test(str);
 }
 
 function isComment(str: string): boolean {
