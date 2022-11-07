@@ -23,11 +23,11 @@ Returns the Transaction formatted in a way suitable to be appendend to a journal
 ### parse
 
 ```
-import { parse } from 'pta-journal';
+import { parse } from 'pta-tools';
 ```
 
 ```
-function parse(stream: ReadableStream): ParseResult
+function parse(stream: ReadableStream): Promise<ParseResult>
 ```
 
 ```
@@ -39,3 +39,7 @@ type ParseResult = {
 ```
 
 Returns the transactions, the accounts and the commodities from a journal. To get the stream of the journal you can use
+
+```
+const stream = fs.createReadStream('./hledger.journal');
+```
